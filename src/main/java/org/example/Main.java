@@ -41,6 +41,23 @@ public class Main {
                 ctx.result("Invalid Index").status(404);
             }
         });
+
+        app.post("/api/contacts", ctx -> {
+            try {
+                String name = ctx.formParam("name");
+                String phone = ctx.formParam("phone");
+
+                if (name != null && name.length() > 0 && !name.isBlank()
+                        && phone != null && phone.length() > 0 && !phone.isBlank()) {
+                    contacts.add(new Contact(name, phone));
+                    ctx.result("Successfully Added!").status(200);
+                } else {
+                    ctx.result("Invalid Name and Phone").status(404);
+                }
+            } catch (Exception e) {
+                ctx.result("Unknown Error when Creating Contact").status(404);
+            }
+        });
     }
 
     public static void initContacts() {
