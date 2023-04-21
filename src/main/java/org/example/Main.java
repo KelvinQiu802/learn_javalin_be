@@ -12,11 +12,13 @@ public class Main {
         initContacts();
 
         var app = Javalin.create(
-//                config -> {
-//                    config.plugins.enableCors(cors -> {
-//                        cors.add(CorsPluginConfig::anyHost);
-//                    });
-//                }
+                config -> {
+                    config.plugins.enableCors(cors -> {
+                        cors.add(it -> {
+                            it.anyHost();
+                        });
+                    });
+                }
         ).start(7070);
 
         app.get("/", ctx -> {
